@@ -1,21 +1,21 @@
-const config = require('../config/config.js')
 const { Sequelize, DataTypes, Op } = require('sequelize')
+require('dotenv').config()
 
 const sequelize = new Sequelize(
-  config.database.DB_DATABASE,
-  config.database.DB_USERNAME,
-  config.database.DB_PASSWORD,
+  process.env.DB_DATABASE,
+  process.env.DB_USERNAME,
+  process.env.DB_PASSWORD,
   {
-    host: config.database.DB_HOST,
-    port: config.database.DB_PORT,
-    dialect: config.database.dialect,
+    host: process.env.DB_HOST,
+    port: process.env.DB_HOST,
+    dialect: process.env.DB_CONNECTION,
     operatorsAliases: 1,
 
     poll: {
-      max: config.database.pool.max,
-      min: config.database.pool.min,
-      acquire: config.database.pool.acquire,
-      idle: config.database.pool.idle
+      max: process.env.POOL_MAX,
+      min: process.env.POOL_MIN,
+      acquire: process.env.POOL_ACQUIRE,
+      idle: process.env.POOL_IDLE
     }
   }
 )
