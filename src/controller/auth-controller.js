@@ -34,4 +34,22 @@ const login = async (req, res) => {
   }
 }
 
-module.exports = { login }
+/**
+ *
+ * @param req
+ * @param res
+ * @returns {Promise<void>}
+ */
+const me = (req, res) => {
+  res.status(200).json({
+    data: {
+      id: req.user.id,
+      fullName: req.user.fullName,
+      email: req.user.email,
+      createdAt: req.user.createdAt,
+      updatedAt: req.user.updatedAt
+    }
+  })
+}
+
+module.exports = { login, me }

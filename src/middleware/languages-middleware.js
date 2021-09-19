@@ -7,7 +7,6 @@
  * NOTE: set default value location.
  */
 module.exports = (req, res, next) => {
-  console.log(typeof next)
   if (req.acceptsLanguages().length > 0) {
     process.env.LOCATION = req.acceptsLanguages()[0]
   }

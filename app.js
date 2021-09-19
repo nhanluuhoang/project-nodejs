@@ -4,6 +4,7 @@ const path = require('path')
 const cookieParser = require('cookie-parser')
 const logger = require('morgan')
 const languageMiddleware = require('./src/middleware/languages-middleware')
+const authMiddleware = require('./src/middleware/auth-middleware')
 
 /*
 * Router View
@@ -33,6 +34,7 @@ app.use(express.static(path.join(__dirname, 'public')))
 * Middleware language
 */
 app.use(languageMiddleware)
+app.use(authMiddleware)
 
 /*
 * View initial
