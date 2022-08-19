@@ -4,7 +4,8 @@ const path = require('path')
 const cookieParser = require('cookie-parser')
 const logger = require('morgan')
 const languageMiddleware = require('./src/middleware/languages-middleware')
-const authMiddleware = require('./src/middleware/auth-middleware')
+const swaggerUi = require('swagger-ui-express')
+const swaggerDocument = require('./swagger.json');
 
 /*
 * Router View
@@ -34,7 +35,6 @@ app.use(express.static(path.join(__dirname, 'public')))
 * Middleware language
 */
 app.use(languageMiddleware)
-app.use(authMiddleware)
 
 /*
 * View initial
@@ -45,6 +45,16 @@ app.use('/', indexRouter)
 * Api initial
 */
 app.use('/api', apiRouter)
+
+
+/*
+* Swagger UI
+*/
+if (process.env.NODE_ENV === 'development') {
+  app.use('/api-docs', swaggerUi.serve);
+  app.use('/api-docs', swaggerUi.setup(swaggerDocument));
+  console.log('\x1b[36m%s\x1b[0m', `serving Swagger UI: http://localhost:${process.env.PORT}/api-docs`);
+}
 
 /*
 * Catch 404 and forward to error handler
